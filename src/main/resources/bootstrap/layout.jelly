@@ -56,19 +56,21 @@ THE SOFTWARE.
     </st:attribute>
   </st:documentation>
 
-  <j:new var="h" className="hudson.Functions" /><!-- instead of JSP functions -->
+  <j:new var="h" className="hudson.Functions"  /><!-- instead of JSP functions -->
   ${h.initPageVariables(context)}
 
-  <j:set var="versionParts" value="${h.version.split('\.',3)}" />
-  <j:set var="majorVersion" value="${versionParts[0]}" />
-  <j:set var="minorVersion" value="${versionParts[1].replace('-SNAPSHOT', '')}" />
+<!--  <j:set var="versionComparator" value="${io.jenkins.plugins.bootstrap4.api.JenkinsVersion.build(h.version)" />-->
+<!--  <j:new var="versionComparator" className="${io.jenkins.plugins.bootstrap4.api.JenkinsVersion" />-->
+<!--  <j:new var="jenkinsVersion" className="io.jenkins.plugins.bootstrap4.api.JenkinsVersion" />-->
+
   <j:choose>
-    <j:when test="${(majorVersion > 1 and minorVersion > 234) or majorVersion > 2}">
+    <j:when test="${io.jenkins.plugins.bootstrap4.api.JenkinsVersion.isNewerThanOrEqualTo(h.version, '2.235')}">
       <l:layout title="${title}" permission="${permission}" type="${type}" nogrid="true">
         <d:invokeBody/>
       </l:layout>
     </j:when>
-    <j:when test="${majorVersion > 2 or minorVersion > 221}">
+    <j:when test="${io.jenkins.plugins.bootstrap4.api.JenkinsVersion.isNewerThanOrEqualTo(h.version, '2.222')}">
+<!--    <j:when test="${versionComparator.isNewerThanOrEqualTo('2.222')}">-->
       <bs:layout-post-2.222 title="${title}" permission="${permission}" type="${type}">
         <d:invokeBody/>
       </bs:layout-post-2.222>
