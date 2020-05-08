@@ -59,18 +59,15 @@ THE SOFTWARE.
   <j:new var="h" className="hudson.Functions"  /><!-- instead of JSP functions -->
   ${h.initPageVariables(context)}
 
-<!--  <j:set var="versionComparator" value="${io.jenkins.plugins.bootstrap4.api.JenkinsVersion.build(h.version)" />-->
-<!--  <j:new var="versionComparator" className="${io.jenkins.plugins.bootstrap4.api.JenkinsVersion" />-->
-<!--  <j:new var="jenkinsVersion" className="io.jenkins.plugins.bootstrap4.api.JenkinsVersion" />-->
+  <j:invokeStatic var="jv" className="io.jenkins.plugins.bootstrap4.api.JenkinsVersion" method="get" />
 
   <j:choose>
-    <j:when test="${io.jenkins.plugins.bootstrap4.api.JenkinsVersion.isNewerThanOrEqualTo(h.version, '2.235')}">
+    <j:when test="${jv.isNewerThanOrEqualTo(h.version, '2.235')}">
       <l:layout title="${title}" permission="${permission}" type="${type}" nogrid="true">
         <d:invokeBody/>
       </l:layout>
     </j:when>
-    <j:when test="${io.jenkins.plugins.bootstrap4.api.JenkinsVersion.isNewerThanOrEqualTo(h.version, '2.222')}">
-<!--    <j:when test="${versionComparator.isNewerThanOrEqualTo('2.222')}">-->
+    <j:when test="${jv.isNewerThanOrEqualTo(h.version, '2.222')}">
       <bs:layout-post-2.222 title="${title}" permission="${permission}" type="${type}">
         <d:invokeBody/>
       </bs:layout-post-2.222>
